@@ -2,11 +2,22 @@ def OrdenarCarnet(lista):
     if len(lista) <= 1:
         return lista
     else:
-        pivote = lista["carnet"]
+        pivote = int
+        for clave, valor in lista.items():
+            pivote = clave
+            break
         mayores = {x for x in lista["carnet"] if x > pivote}
         menores = {x for x in lista["carnet"] if x < pivote}
         return OrdenarCarnet(menores) + [pivote] + OrdenarCarnet(mayores)
-
+def OrdenarNombre(lista):
+    if len(lista) <= 1:
+        return lista
+    else:
+        pivote = lista["carnet"]["nombre"]
+        mayores = {x for x in lista["carnet"]["nombre"] if x > pivote}
+        iguales = {x for x in lista["carnet"]["nombre"] if x == pivote}
+        menores = {x for x in lista["carnet"]["nombre"] if x < pivote}
+        return OrdenarNombre(menores) + iguales + OrdenarNombre(mayores)
 
 estudiantes ={}
 #cursos = {}
@@ -83,9 +94,11 @@ while True:
         case 2:
             print("Todos los estudiantes registrados.")
             print("Estudiantes ordenados por su Carnet")
-            estudiantesOrdenadosCarnet = quickSort(estudiantes)
+            estudiantesOrdenadosCarnet = OrdenarCarnet(estudiantes)
+            print(mostrarDatos(estudiantesOrdenadosCarnet))
             print("Estudiantes ordenados por su Nombre: ")
-            estudiantesOrdenadosNombre =
+            estudiantesOrdenadosNombre = OrdenarNombre(estudiantes)
+            print(mostrarDatos(estudiantesOrdenadosNombre))
         case 3:
             buscar = input("Ingrese el carnet del estudiante: ")
             if buscar in estudiantes:
